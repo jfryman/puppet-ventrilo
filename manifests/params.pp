@@ -1,5 +1,5 @@
 class ventrilo::params {
-  $defaults = {
+  $ventrilo_srv = {
     name         => 'Server 1',
     phonetic     => 'Server 1',
     auth         => '0',
@@ -20,5 +20,11 @@ class ventrilo::params {
     voiceformat  => '1',
     silentlobby  => '0',
     autokick     => '0'
+  }
+
+  $defaults = {
+    daemon_user          => 'ventrilo',
+    ventrilo_srv_path    => 'puppet:///modules/ventrilo/ventrilo_srv',
+    ventrilo_status_path => 'puppet:///modules/ventrilo/ventrilo_status',
   }
 }
