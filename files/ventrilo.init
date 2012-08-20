@@ -1,0 +1,54 @@
+#!/bin/sh
+# Ventrilo Server
+
+VENTCONFIG=/etc/ventrilo
+VENTPREFIX=ventrilo_srv
+VENTBIN=/usr/bin/ventrilo_srv
+
+. /lib/lsb/init-functions
+
+case $1 in
+	start)
+		log_daemon_msg "Starting VOIP server" "ventrilo"
+		
+		su ventrilo -c "$VENTBIN -f$VENTCONFIG/$VENTPREFIX -d"
+		renice -5 `cat $VENTCONFIG/$VENTPREFIX.pid`
+
+                log_end_msg 0
+	;;
+	stop)
+		log_daemon_msg "Stopping VOIP server" "ventrilo"
+
+		kill `cat $VENTCONFIG/$VENTPREFIX.pid`
+
+                log_end_msg 0
+	;;
+	restart)
+		log_daemon_msg "Restarting VOIP server" "ventrilo"
+
+		#Stop
+		kill `cat $VENTCONFIG/$VENTPREFIX.pid`
+
+		#Start
+		su ventrilo -c "$VENTBIN -f$VENTCONFIG/$VENTPREFIX -d"
+                renice -5 `cat $VENTCONFIG/$VENTPREFIX.pid`
+
+                log_end_msg 0
+	;;
+	status)
+		PID=`cat $VENTCONFIG/$VENTPREFIX.pid`
+		if [ -n "$PID" ]; then
+			log_success_msg "Vent is running (pid $PID)."
+			ventStatus=`/usr/bin/ventrilo_status -c1 -t127.0.0.1`
+			log_success_msg "$ventStatus"
+			exit 0
+		else
+			log_failure_msg "Vent is not running."
+			exit 1
+		fi
+	;;
+	*)
+		log_success_msg "Usage: $0 {start|stop|restart|status}"
+		exit 1
+	;;
+esac
