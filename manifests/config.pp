@@ -20,7 +20,7 @@ class ventrilo::config(
   $silentlobby,
   $autokick,
   $password,
-  $server_password,
+  $admin_password,
   $daemon_user,
 ) {
   File {

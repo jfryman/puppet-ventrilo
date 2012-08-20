@@ -23,7 +23,7 @@ class ventrilo(
     $ventrilo_srv_path    = $ventrilo::params::defaults['ventrilo_srv_path'],
     $ventrilo_status_path = $ventrilo::params::defaults['ventrilo_status_path'],
     $password,
-    $server_password
+    $admin_password
 )inherits ventrilo::params {
   include stdlib
 
@@ -54,7 +54,7 @@ class ventrilo(
     silentlobby     => $silentlobby,
     autokick        => $autokick,
     password        => $password,
-    server_password => $server_password,
+    admin_password  => $admin_password,
     daemon_user     => $daemon_user,
   }
   ~> class { 'ventrilo::service': }
