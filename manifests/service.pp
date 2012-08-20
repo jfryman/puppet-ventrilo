@@ -1,4 +1,4 @@
-class ventrilo::server {
+class ventrilo::service {
   service { 'ventrilo':
     ensure     => running,
     enable     => true,
