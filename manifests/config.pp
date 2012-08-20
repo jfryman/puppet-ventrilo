@@ -1,5 +1,5 @@
 class ventrilo::config(
-  $name,
+  $server_name,
   $phonetic,
   $auth,
   $duplicates,

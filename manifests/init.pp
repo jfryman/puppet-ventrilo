@@ -1,5 +1,5 @@
 class ventrilo(
-    $name                 = $ventrilo::params::ventrilo_srv['name'],
+    $server_name          = $ventrilo::params::ventrilo_srv['server_name'],
     $phonetic             = $ventrilo::params::ventrilo_srv['phonetic'],
     $auth                 = $ventrilo::params::ventrilo_srv['auth'],
     $duplicates           = $ventrilo::params::ventrilo_srv['duplicates'],
@@ -33,7 +33,7 @@ class ventrilo(
     ventrilo_status_path => $ventrilo_status_path,
   }
   -> class { 'ventrilo::config':
-    name            => $name,
+    server_name     => $server_name,
     phonetic        => $phonetic,
     auth            => $auth,
     duplicates      => $duplicates,
